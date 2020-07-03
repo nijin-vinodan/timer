@@ -1,0 +1,36 @@
+.display-timer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px 0;
+
+    h3 {
+        text-align: center;
+        font-size: 30px;
+        margin: 5px;
+        letter-spacing: 1px;
+    }
+}
+
+.clock {
+    display: flex;
+    font-size: 150px;
+    justify-content: center;
+
+    .days,
+    .hours,
+    .mins {
+        &:after {
+            content: ':'
+        }
+    }
+
+    &.warning {
+        background: #cce3ba;
+    }
+
+    &.alert {
+        background: #A80000;
+        color: #fff;
+    }
+}

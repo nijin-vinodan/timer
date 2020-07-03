@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import './App.scss';
+import HomeScreen from './pages/home-screen/HomeScreen';
+import AdminScreen from './pages/admin-screen/AdminScreen';
+import firebase from 'firebase';
 
 function App() {
+
+  const config = {
+    apiKey: "AIzaSyDMDhDp4TnINdX55wfeMXnEnWqbC30pQRs",
+    authDomain: "timer-9a5b0.firebaseapp.com",
+    databaseURL: "https://timer-9a5b0.firebaseio.com",
+  };
+
+  firebase.initializeApp(config);
+  const db = firebase.database();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Route path={"/"} exact render={(props) => <HomeScreen firebaseDB={db} {...props} />} />
+      <Route path={"/admin"} exact render={(props) => <AdminScreen firebaseDB={db} {...props} />} />
+    </BrowserRouter>
   );
 }
 
