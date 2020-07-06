@@ -19,7 +19,6 @@ function App() {
   return (
     <BrowserRouter>
       <Route path={"/"} exact render={(props) => <HomeScreen firebaseDB={db} {...props} />} />
-      <Route path={"/adminVeeraraghavanCngAdmin"} exact render={(props) => <AdminScreen firebaseDB={db} {...props} />} />
     </BrowserRouter>
   );
 }
