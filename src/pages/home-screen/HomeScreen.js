@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Loader from 'react-spinner-loader';
 import './HomeScreen.scss';
 import DisplayTimer from '../../components/display-timer/DisplayTimer';
 
 const HomeScreen = ({ firebaseDB }) => {
 
+    const [loader, setLoader] = useState(true);
     const [timer, setTimer] = useState({
         display: {
             days: '00',
@@ -17,12 +19,16 @@ const HomeScreen = ({ firebaseDB }) => {
     useEffect(() => {
         firebaseDB.ref("timer").on("value", snapshot => {
             setTimer(snapshot.val());
+            setLoader(false);
         });
-    }, []);
+    }, [firebaseDB]);
 
     return (
         <div>
-            <DisplayTimer timer={timer} />
+
+            {loader ? (<div className="loader-section">
+                <Loader show={true} />
+            </div>) : <DisplayTimer timer={timer} />}
         </div>
     )
 }

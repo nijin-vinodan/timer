@@ -3,19 +3,24 @@
     flex-direction: column;
     justify-content: center;
     padding: 15px 0;
+    color: #121212;
+    font-weight: 100;
+    text-align: center;
 
     h3 {
+        margin: 0;
         text-align: center;
-        font-size: 30px;
-        margin: 5px;
+        font-size: 24px;
         letter-spacing: 1px;
+        color: #4d80b3;
     }
 }
 
 .clock {
     display: flex;
-    font-size: 150px;
+    font-size: 100px;
     justify-content: center;
+    line-height: 100px;
 
     .days,
     .hours,
@@ -27,10 +32,34 @@
 
     &.warning {
         background: #cce3ba;
+        line-height: 120px;
     }
 
     &.alert {
         background: #A80000;
         color: #fff;
+        line-height: 120px;
+    }
+}
+
+.time-up {
+    padding: 10px;
+    color: #A80000;
+    font-size: 60px;
+    transition: 1s;
+    animation: timeUpEffect 1s infinite;
+}
+
+@keyframes timeUpEffect {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+
+    100% {
+        transform: scale(1);
     }
 }

@@ -3,8 +3,9 @@ import './Timer.scss';
 import { getEndTime, processTimeLeft } from './../../utils/timer-utils';
 import DisplayTimer from '../display-timer/DisplayTimer';
 
-const Timer = ({ countdownTo, notify }) => {
-    const [timer, setTimer] = useState({
+const Timer = ({ timer, onCountDownChange }) => {
+    const [clock, setClock] = useState({
+        name: '',
         display: {
             days: '00',
             hours: '00',
@@ -15,28 +16,42 @@ const Timer = ({ countdownTo, notify }) => {
     });
     const ticker = useRef();
 
-    useEffect(() => {
-        const countDownDT = getEndTime(countdownTo).getTime();
-        clearInterval(ticker.current);
+    const updateTimer = (updatedTimer) => {
+        setClock(updatedTimer);
+        onCountDownChange(updatedTimer);
+    }
 
-        ticker.current = setInterval(() => {
-            const now = new Date().getTime();
-            const timeLeft = countDownDT - now;
-            if (timeLeft > 0) {
-                const display = processTimeLeft(timeLeft);
-                const updatedTimer = {
-                    display, timeLeft
-                };
-                setTimer(updatedTimer);
-                notify(updatedTimer);
-            } else {
-                clearInterval(ticker.current);
-            }
-        }, 1000);
-    }, [countdownTo, notify]);
+    useEffect(() => {
+        const countDownDT = getEndTime(timer.countDownTo).getTime();
+        console.log(countDownDT);
+        clearInterval(ticker.current);
+        if (timer.mode === 'off') {
+            updateTimer({
+                name: timer.name,
+                display: timer.countDownTo,
+                timeLeft: countDownDT
+            })
+        } else {
+            ticker.current = setInterval(() => {
+                const now = new Date().getTime();
+                const timeLeft = countDownDT - now;
+                if (timeLeft > 0) {
+                    const display = processTimeLeft(timeLeft);
+                    const updatedTimer = {
+                        name: timer.name, display, timeLeft
+                    };
+                    updateTimer(updatedTimer);
+                } else {
+                    clearInterval(ticker.current);
+                }
+            }, 1000);
+        }
+    }, [timer, onCountDownChange]);
+
+
 
     return (
-        <DisplayTimer timer={timer} />
+        <DisplayTimer timer={clock} />
     )
 }
 

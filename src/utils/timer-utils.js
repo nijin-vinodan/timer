@@ -6,19 +6,19 @@ export const getEndTime = (countdownTo) => {
     let currentDT = new Date();
 
     if (countdownTo.days) {
-        countdownTo.hours += countdownTo.days * 24;
+        countdownTo.hours += Number(countdownTo.days) * 24;
     }
 
     if (countdownTo.hours) {
-        currentDT.setHours(currentDT.getHours() + countdownTo.hours);
+        currentDT.setHours(currentDT.getHours() + Number(countdownTo.hours));
     }
 
     if (countdownTo.minutes) {
-        currentDT.setMinutes(currentDT.getMinutes() + countdownTo.minutes);
+        currentDT.setMinutes(currentDT.getMinutes() + Number(countdownTo.minutes));
     }
 
     if (countdownTo.seconds) {
-        currentDT.setSeconds(currentDT.getSeconds() + countdownTo.seconds);
+        currentDT.setSeconds(currentDT.getSeconds() + 1 + Number(countdownTo.seconds));
     }
 
     return currentDT;
